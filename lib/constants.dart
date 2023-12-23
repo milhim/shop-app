@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -39,6 +40,47 @@ final otpInputDecoration = InputDecoration(
   focusedBorder: outlineInputBorder(),
   enabledBorder: outlineInputBorder(),
 );
+InputDecoration inputDecoration({
+  required String hintText,
+  required String labelText,
+  required String iconPath,
+}) {
+  return InputDecoration(
+    labelText: labelText,
+    labelStyle: TextStyle(color: kSecondaryColor),
+    hintStyle: TextStyle(color: kSecondaryColor),
+    hintText: hintText,
+    // floatingLabelBehavior: FloatingLabelBehavior.always,
+    contentPadding: EdgeInsets.symmetric(
+      horizontal: 45,
+      vertical: 20,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: kTextColor),
+      gapPadding: 10,
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: kTextColor),
+      gapPadding: 10,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: kTextColor, width: 2),
+      gapPadding: 10,
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.red, width: 2),
+      gapPadding: 10,
+    ),
+    suffixIcon: Padding(
+      padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
+      child: SvgPicture.asset(iconPath),
+    ),
+  );
+}
 
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
