@@ -1,82 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/auth_text_form_field.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/components/social_icon.dart';
 import 'package:shop_app/constants.dart';
-
-class Body extends StatelessWidget {
-  const Body({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Text(
-                  'Welcome Back',
-                  style: TextStyle(
-                      color: kTextColor,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Text(
-                  'Sign in with your email and password \n or continue with social media',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: kSecondaryColor),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                SignForm(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialIcon(
-                      icon: "assets/icons/google-icon.svg",
-                      press: () {},
-                    ),
-                    SocialIcon(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocialIcon(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have an account? ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    GestureDetector(
-                      // onTap: () => Navigator.pushNamed(context, SignUpScreen.routeName),
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(fontSize: 16, color: kPrimaryColor),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({super.key});
@@ -89,6 +15,8 @@ class _SignFormState extends State<SignForm> {
   bool _rememberMeValue = false;
 
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   String? email;
   String? password;
   final List<String?> errors = [];
@@ -118,6 +46,7 @@ class _SignFormState extends State<SignForm> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextFormField(
+            controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: inputDecoration(
               hintText: "Enter your email",
@@ -145,6 +74,7 @@ class _SignFormState extends State<SignForm> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           TextFormField(
+            controller: _passwordController,
             obscureText: true,
             onSaved: (newValue) => password = newValue,
             onChanged: (value) {
@@ -186,7 +116,9 @@ class _SignFormState extends State<SignForm> {
               const Text("Remember me"),
               Spacer(),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, ForgotPasswordScreen.routName);
+                  },
                   child: Text(
                     'Forgot Password',
                     style: TextStyle(
